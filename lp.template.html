@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPL — Soluções Tecnológicas · Do desafio ao produto</title>
+<meta name="description" content="Software house que constrói produtos digitais com estratégia, tecnologia e um time preparado para executar. Criadora da Thumdra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#00FF66;
+  --green-dim:#00c24e;
+  --black:#050605;
+  --ink:#0A0A0A;
+  --graf:#141614;
+  --card:#101210;
+  --line:#1e221f;
+  --off:#F7F7F5;
+  --grey:#8a908c;
+  --grey-2:#5a605c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--black);color:var(--off);
+  font-family:'Inter',sans-serif;font-weight:400;
+  overflow-x:hidden;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--green);color:var(--black)}
+h1,h2,h3,.display{font-family:'Sora',sans-serif}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ---------- grain ---------- */
+body::after{
+  content:"";position:fixed;inset:-50%;z-index:999;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 9s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}
+  40%{transform:translate(3%,-4%)}60%{transform:translate(-3%,-2%)}80%{transform:translate(4%,3%)}
+}
+
+/* ---------- shared ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.eyebrow{
+  font-size:13px;font-weight:600;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--green);display:flex;align-items:center;gap:16px;
+}
+.eyebrow::before{content:"";width:34px;height:2px;background:var(--green);flex:none}
+.section-title{font-weight:800;font-size:clamp(38px,5vw,64px);line-height:1.06;letter-spacing:-.02em;margin:26px 0 0}
+.section-title .g{color:var(--green)}
+.lead{color:var(--grey);font-size:18px;max-width:560px;margin-top:22px}
+.lead strong{color:var(--off);font-weight:600}
+section{position:relative;padding:130px 0}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.22s}.rv.d3{transition-delay:.34s}.rv.d4{transition-delay:.46s}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(5,6,5,.6);border-bottom:1px solid transparent;
+  transition:border-color .4s,background .4s;
+}
+nav.scrolled{border-bottom-color:var(--line);background:rgba(5,6,5,.85)}
+.nav-inner{max-width:1240px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:13px}
+.brand svg{height:40px;width:auto}
+.brand-txt{line-height:1.05}
+.brand-txt b{font-family:'Sora';font-weight:800;font-size:19px;letter-spacing:.06em}
+.brand-txt span{display:block;font-size:8.5px;font-weight:600;letter-spacing:.34em;color:var(--grey)}
+.nav-links{display:flex;gap:38px;font-size:14px;font-weight:500;color:var(--grey)}
+.nav-links a{position:relative;transition:color .25s}
+.nav-links a:hover{color:var(--off)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:2px;background:var(--green);transition:width .3s}
+.nav-links a:hover::after{width:100%}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Inter';font-weight:600;font-size:14px;letter-spacing:.02em;
+  border:1px solid var(--green);color:var(--green);border-radius:100px;
+  padding:11px 24px;transition:.3s;cursor:pointer;background:transparent;
+}
+.btn:hover{background:var(--green);color:var(--black);box-shadow:0 0 34px rgba(0,255,102,.45)}
+.btn.solid{background:var(--green);color:var(--black)}
+.btn.solid:hover{box-shadow:0 0 50px rgba(0,255,102,.6);transform:translateY(-2px)}
+.btn .arr{transition:transform .3s}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;display:flex;align-items:center;
+  padding:170px 0 120px;overflow:hidden;
+}
+.hero-floor{
+  position:absolute;left:0;right:0;bottom:0;height:62%;
+  background:url({{FLOOR}}) center bottom/cover no-repeat;
+  opacity:.5;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to top,#000 30%,transparent 100%);
+  mask-image:linear-gradient(to top,#000 30%,transparent 100%);
+}
+.hero-glow{
+  position:absolute;width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,102,.13),transparent 60%);
+  right:-260px;top:-160px;pointer-events:none;
+  animation:breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;position:relative}
+.hero h1{
+  font-weight:800;font-size:clamp(52px,7.4vw,104px);
+  line-height:1.0;letter-spacing:-.03em;margin:30px 0 0;
+}
+.hero h1 .g{color:var(--green);text-shadow:0 0 60px rgba(0,255,102,.4)}
+.hero .lead{font-size:19px;margin-top:28px}
+.hero-cta{display:flex;gap:18px;margin-top:44px;align-items:center}
+.hero-piece{position:relative;display:flex;justify-content:center}
+.hero-piece img{
+  width:min(420px,80%);border-radius:22px;
+  filter:saturate(1.05);
+  box-shadow:0 40px 90px rgba(0,0,0,.6),0 0 90px rgba(0,255,102,.10);
+  animation:float 7s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero-side{
+  position:absolute;right:40px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:14px;text-align:right;
+  font-size:11px;font-weight:600;letter-spacing:.4em;color:var(--grey-2);
+}
+.hero-side b{color:var(--grey)}
+.scroll-hint{
+  position:absolute;left:50%;bottom:34px;transform:translateX(-50%);
+  width:1px;height:60px;background:linear-gradient(var(--green),transparent);
+  animation:hint 2s ease-in-out infinite;
+}
+@keyframes hint{0%,100%{opacity:.2}50%{opacity:1}}
+
+/* ---------- marquee ---------- */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  padding:22px 0;overflow:hidden;white-space:nowrap;background:var(--ink);
+}
+.marquee-track{display:inline-flex;gap:64px;animation:mq 26s linear infinite}
+.marquee span{
+  font-family:'Sora';font-weight:700;font-size:15px;letter-spacing:.34em;
+  color:var(--grey-2);text-transform:uppercase;display:flex;align-items:center;gap:64px;
+}
+.marquee .dot{color:var(--green)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- manifesto ---------- */
+.manifesto{background:var(--ink)}
+.mani-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:center}
+.mani-img{position:relative;border-radius:20px;overflow:hidden}
+.mani-img img{width:100%;filter:brightness(.92)}
+.mani-img::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(5,6,5,.55),transparent 55%)}
+.mani-quote{font-weight:700;font-size:clamp(32px,3.6vw,50px);line-height:1.14;letter-spacing:-.015em}
+.mani-quote .g{color:var(--green)}
+.mani-note{margin-top:30px;color:var(--grey);font-size:17px;max-width:480px}
+.mani-tag{
+  margin-top:44px;display:inline-flex;gap:16px;align-items:center;
+  font-size:12px;font-weight:600;letter-spacing:.4em;color:var(--grey-2);text-transform:uppercase;
+}
+.mani-tag::before{content:"";width:40px;height:2px;background:var(--green)}
+
+/* ---------- soluções ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:70px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:42px 34px;position:relative;overflow:hidden;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),border-color .4s,box-shadow .4s;
+}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--green),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s;
+}
+.card:hover{transform:translateY(-8px);border-color:#2c332e;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.card:hover::before{transform:scaleX(1)}
+.card .num{font-family:'Sora';font-weight:800;font-size:14px;color:var(--grey-2);letter-spacing:.2em}
+.card .ic{margin:26px 0 22px}
+.card .ic svg{width:44px;height:44px;stroke:var(--green);fill:none;stroke-width:1.6}
+.card h3{font-weight:700;font-size:23px;letter-spacing:-.01em}
+.card p{color:var(--grey);font-size:15.5px;margin-top:14px}
+.card .more{
+  margin-top:28px;display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--green);text-transform:uppercase;
+  opacity:0;transform:translateX(-8px);transition:.35s;
+}
+.card:hover .more{opacity:1;transform:none}
+
+/* ---------- thumdra ---------- */
+.thumdra{background:var(--ink);overflow:hidden}
+.thm-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:70px;align-items:center}
+.thm-badge{
+  display:inline-flex;align-items:center;gap:10px;margin-top:26px;
+  background:rgba(0,255,102,.08);border:1px solid rgba(0,255,102,.25);
+  color:var(--green);border-radius:100px;padding:8px 18px;
+  font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+}
+.thm-badge::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 12px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.4}}
+.thm-models{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.thm-model{
+  border:1px solid var(--line);border-radius:14px;padding:24px 22px;background:var(--card);
+  transition:border-color .3s,transform .3s;
+}
+.thm-model:hover{border-color:rgba(0,255,102,.4);transform:translateY(-4px)}
+.thm-model h4{font-family:'Sora';font-weight:700;font-size:16px;display:flex;gap:10px;align-items:center}
+.thm-model h4 span{color:var(--green)}
+.thm-model p{font-size:13.5px;color:var(--grey);margin-top:8px}
+.thm-link{margin-top:34px;display:inline-flex;align-items:center;gap:10px;
+  font-family:'Sora';font-weight:700;font-size:15px;color:var(--off)}
+.thm-link em{color:var(--green);font-style:normal}
+/* mock window */
+.window{
+  border-radius:16px;border:1px solid var(--line);overflow:hidden;
+  background:#0c0e0c;box-shadow:0 50px 110px rgba(0,0,0,.65),0 0 80px rgba(0,255,102,.07);
+  transform:perspective(1400px) rotateY(-7deg) rotateX(2deg);
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.thm-grid:hover .window{transform:perspective(1400px) rotateY(-2deg) rotateX(0deg)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:13px 18px;border-bottom:1px solid var(--line);background:#0a0c0a}
+.win-bar i{width:10px;height:10px;border-radius:50%;background:#232623}
+.win-bar i:first-child{background:rgba(0,255,102,.7)}
+.win-url{margin-left:14px;font-size:11.5px;color:var(--grey-2);background:#111311;border-radius:6px;padding:4px 14px;letter-spacing:.04em}
+.win-url b{color:var(--green);font-weight:600}
+.win-body{display:grid;grid-template-columns:52px 1fr;min-height:320px}
+.win-side{border-right:1px solid var(--line);padding:16px 0;display:flex;flex-direction:column;align-items:center;gap:16px}
+.win-side i{width:20px;height:20px;border-radius:6px;background:#191c19}
+.win-side i.on{background:rgba(0,255,102,.25);outline:1px solid rgba(0,255,102,.5)}
+.win-main{padding:22px}
+.win-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:#111311;border:1px solid var(--line);border-radius:10px;padding:14px}
+.kpi small{font-size:9.5px;letter-spacing:.18em;color:var(--grey-2);text-transform:uppercase;font-weight:600}
+.kpi b{display:block;font-family:'Sora';font-weight:800;font-size:22px;margin-top:6px}
+.kpi b.g{color:var(--green)}
+.win-chart{margin-top:14px;background:#111311;border:1px solid var(--line);border-radius:10px;padding:16px;height:130px;display:flex;align-items:flex-end;gap:7px}
+.win-chart i{flex:1;background:linear-gradient(to top,rgba(0,255,102,.55),rgba(0,255,102,.12));border-radius:3px 3px 0 0;animation:bar 1.4s cubic-bezier(.2,.7,.2,1) both}
+.win-chart i:nth-child(odd){background:linear-gradient(to top,#232823,#171a17)}
+@keyframes bar{from{height:0!important}}
+.win-rows{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.win-rows i{height:13px;border-radius:4px;background:#141714}
+.win-rows i:nth-child(1){width:82%}.win-rows i:nth-child(2){width:64%}.win-rows i:nth-child(3){width:73%}
+
+/* ---------- processo ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:80px;position:relative}
+.steps::before{content:"";position:absolute;top:27px;left:6%;right:6%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line) 12%,var(--line) 88%,transparent)}
+.step{padding:0 26px;text-align:left;position:relative}
+.step .dot{
+  width:54px;height:54px;border-radius:50%;background:var(--ink);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  font-family:'Sora';font-weight:800;font-size:15px;color:var(--green);
+  position:relative;z-index:1;transition:.35s;
+}
+.step:hover .dot{border-color:var(--green);box-shadow:0 0 30px rgba(0,255,102,.35)}
+.step h4{font-weight:700;font-size:19px;margin-top:26px}
+.step p{color:var(--grey);font-size:14.5px;margin-top:10px}
+
+/* ---------- CTA ---------- */
+.cta{overflow:hidden}
+.cta-bg{
+  position:absolute;inset:0;background:url({{BISHOP}}) center/cover no-repeat;opacity:.4;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 40%);
+  mask-image:linear-gradient(to right,transparent,#000 40%);
+}
+.cta-inner{position:relative;text-align:left;max-width:720px}
+.cta h2{font-weight:800;font-size:clamp(40px,5.4vw,72px);line-height:1.05;letter-spacing:-.025em}
+.cta h2 .g{color:var(--green)}
+.cta p{color:var(--grey);font-size:18px;margin-top:24px;max-width:520px}
+.cta .btn{margin-top:44px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:56px 0 40px;background:var(--ink)}
+.foot-grid{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.foot-links{display:flex;gap:30px;font-size:13.5px;color:var(--grey)}
+.foot-links a:hover{color:var(--green)}
+.foot-note{width:100%;margin-top:34px;padding-top:26px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;font-size:12.5px;color:var(--grey-2);flex-wrap:wrap;gap:10px}
+
+/* ---------- responsive ---------- */
+@media(max-width:1000px){
+  .hero-grid,.mani-grid,.thm-grid{grid-template-columns:1fr;gap:50px}
+  .cards{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:44px}
+  .steps::before{display:none}
+  .hero-side{display:none}
+  .nav-links{display:none}
+  .window{transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <svg viewBox="193 59 401 545" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="{{FIGURE}}" fill="#00FF66"/></svg>
+      <div class="brand-txt"><b>SPL</b><span>SOLUÇÕES TECNOLÓGICAS</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#solucoes">Soluções</a>
+      <a href="#thumdra">Thumdra</a>
+      <a href="#processo">Como jogamos</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a class="btn" href="#contato">Falar sobre um projeto <span class="arr">→</span></a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-floor"></div>
+  <div class="hero-glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow rv">Estratégia · Tecnologia · Resultados</div>
+      <h1 class="rv d1">Do desafio<br>ao <span class="g">produto.</span></h1>
+      <p class="lead rv d2">Transformamos necessidades de negócio em software, com <strong>estratégia, tecnologia</strong> e um time preparado para executar.</p>
+      <div class="hero-cta rv d3">
+        <a class="btn solid" href="#contato">Falar sobre o seu projeto <span class="arr">→</span></a>
+        <a class="btn" href="#thumdra">Conhecer a Thumdra</a>
+      </div>
+    </div>
+    <div class="hero-piece rv d2">
+      <img src="{{PIECE}}" alt="Peça de xadrez com o símbolo SPL">
+    </div>
+  </div>
+  <div class="hero-side">
+    <span>IDEIAS</span><span>PROCESSOS</span><span>PESSOAS</span><b>TECNOLOGIA</b><b>RESULTADOS</b>
+  </div>
+  <div class="scroll-hint"></div>
+</header>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Estratégia <i class="dot">·</i> Tecnologia <i class="dot">·</i> Resultados <i class="dot">·</i> O futuro em movimento <i class="dot">·</i> Software sob medida <i class="dot">·</i> Produtos digitais <i class="dot">·</i> White label <i class="dot">·</i></span>
+    <span>Estratégia <i class="dot">·</i> Tecnologia <i class="dot">·</i> Resultados <i class="dot">·</i> O futuro em movimento <i class="dot">·</i> Software sob medida <i class="dot">·</i> Produtos digitais <i class="dot">·</i> White label <i class="dot">·</i></span>
+  </div>
+</div>
+
+<!-- ============ MANIFESTO ============ -->
+<section class="manifesto">
+  <div class="wrap mani-grid">
+    <div class="mani-img rv"><img src="{{KNIGHT}}" alt="Cavalo de xadrez esculpido, luz verde"></div>
+    <div>
+      <div class="eyebrow rv">Nosso manifesto</div>
+      <p class="mani-quote rv d1" style="margin-top:28px">Saber desenvolver é importante.<br><span class="g">Saber jogar o jogo é essencial.</span></p>
+      <p class="mani-note rv d2">Unimos visão de negócio, tecnologia e execução para construir soluções que realmente fazem sentido — gerando impacto real para empresas, produtos e pessoas.</p>
+      <div class="mani-tag rv d3">Estratégia em cada movimento</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOLUÇÕES ============ -->
+<section id="solucoes">
+  <div class="wrap">
+    <div class="eyebrow rv">O que fazemos</div>
+    <h2 class="section-title rv d1">Soluções para o seu<br><span class="g">próximo movimento.</span></h2>
+    <div class="cards">
+      <div class="card rv d1">
+        <div class="num">01</div>
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/><path d="m9.5 9.5 5 5m0-5-5 5"/></svg></div>
+        <h3>Software sob medida</h3>
+        <p>Sistemas, plataformas e soluções personalizadas para o seu negócio — do escopo à entrega.</p>
+        <span class="more">Saiba mais →</span>
+      </div>
+      <div class="card rv d2">
+        <div class="num">02</div>
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>Produtos digitais</h3>
+        <p>Da ideia ao mercado: criamos e evoluímos produtos escaláveis com visão de longo prazo.</p>
+        <span class="more">Saiba mais →</span>
+      </div>
+      <div class="card rv d3">
+        <div class="num">03</div>
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M20 7h-9m9 10h-9M4 7h.01M4 17h.01"/><rect x="2" y="4" width="20" height="6" rx="2"/><rect x="2" y="14" width="20" height="6" rx="2"/></svg></div>
+        <h3>Soluções White Label</h3>
+        <p>A tecnologia certa com a sua marca, pronta para o seu mercado — sem construir do zero.</p>
+        <span class="more">Saiba mais →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THUMDRA ============ -->
+<section class="thumdra" id="thumdra">
+  <div class="wrap thm-grid">
+    <div>
+      <div class="eyebrow rv">Nosso produto</div>
+      <h2 class="section-title rv d1" style="font-size:clamp(34px,4.4vw,56px)">Thumdra<span class="g">.</span></h2>
+      <div class="thm-badge rv d2">Projeto desenvolvido na SPL</div>
+      <p class="lead rv d2"><strong>CRM, automação e gestão comercial em uma única plataforma.</strong> A Thumdra centraliza operações, organiza contatos, estrutura pipelines, cria campanhas e automatiza processos.</p>
+      <div class="thm-models">
+        <div class="thm-model rv d3">
+          <h4><span>◈</span> Consumo padrão</h4>
+          <p>Use a plataforma pronta, com a marca Thumdra — assine e comece a operar hoje.</p>
+        </div>
+        <div class="thm-model rv d4">
+          <h4><span>◈</span> White label</h4>
+          <p>A mesma tecnologia com a <em style="font-style:normal;color:var(--off)">sua marca</em>, para revender ao seu mercado.</p>
+        </div>
+      </div>
+      <a class="thm-link rv d4" href="https://thumdra.com" target="_blank" rel="noopener">Conhecer em <em>thumdra.com</em> →</a>
+    </div>
+    <div class="rv d2">
+      <div class="window">
+        <div class="win-bar"><i></i><i></i><i></i><span class="win-url"><b>thumdra.com</b>/dashboard</span></div>
+        <div class="win-body">
+          <div class="win-side"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+          <div class="win-main">
+            <div class="win-kpis">
+              <div class="kpi"><small>Leads / mês</small><b class="g">1.284</b></div>
+              <div class="kpi"><small>Conversão</small><b>23,4%</b></div>
+              <div class="kpi"><small>Pipeline</small><b class="g">R$ 486k</b></div>
+            </div>
+            <div class="win-chart">
+              <i style="height:34%"></i><i style="height:52%"></i><i style="height:41%"></i><i style="height:66%"></i><i style="height:48%"></i><i style="height:74%"></i><i style="height:59%"></i><i style="height:86%"></i><i style="height:71%"></i><i style="height:96%"></i>
+            </div>
+            <div class="win-rows"><i></i><i></i><i></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESSO ============ -->
+<section id="processo">
+  <div class="wrap">
+    <div class="eyebrow rv">Como jogamos</div>
+    <h2 class="section-title rv d1">Da estratégia<br>ao <span class="g">resultado.</span></h2>
+    <p class="lead rv d2">Um processo transparente, colaborativo e focado em impacto.</p>
+    <div class="steps">
+      <div class="step rv d1"><div class="dot">01</div><h4>Estratégia</h4><p>Entendemos o negócio, os objetivos e o desafio.</p></div>
+      <div class="step rv d2"><div class="dot">02</div><h4>Produto</h4><p>Planejamos a solução, tecnologia e roadmap.</p></div>
+      <div class="step rv d3"><div class="dot">03</div><h4>Desenvolvimento</h4><p>Construímos com qualidade, integrações e foco em resultado.</p></div>
+      <div class="step rv d4"><div class="dot">04</div><h4>Evolução</h4><p>Acompanhamos, otimizamos e seguimos para o próximo nível.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="contato">
+  <div class="cta-bg"></div>
+  <div class="wrap cta-inner">
+    <div class="eyebrow rv">O futuro em movimento</div>
+    <h2 class="rv d1" style="margin-top:26px">Sua próxima jogada<br><span class="g">começa aqui.</span></h2>
+    <p class="rv d2">Tem uma ideia, um processo para automatizar ou um software que sua empresa precisa construir? Vamos conversar.</p>
+    <a class="btn solid rv d3" href="mailto:contato@spl.tec.br">Falar sobre o seu projeto <span class="arr">→</span></a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot-grid">
+    <a class="brand" href="#top">
+      <svg viewBox="193 59 401 545" xmlns="http://www.w3.org/2000/svg" style="height:34px"><path fill-rule="evenodd" clip-rule="evenodd" d="{{FIGURE}}" fill="#00FF66"/></svg>
+      <div class="brand-txt"><b>SPL</b><span>SOLUÇÕES TECNOLÓGICAS</span></div>
+    </a>
+    <div class="foot-links">
+      <a href="#solucoes">Soluções</a>
+      <a href="#thumdra">Thumdra</a>
+      <a href="#processo">Como jogamos</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <div class="foot-note">
+      <span>© 2026 SPL Soluções Tecnológicas. Todos os direitos reservados.</span>
+      <span>Estratégia · Tecnologia · Resultados</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// nav scroll state
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+}),{threshold:.18,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
