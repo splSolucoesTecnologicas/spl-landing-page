@@ -34,7 +34,7 @@ const partners = [
     name: 'Advocacia Sarah de Castro',
     url: 'https://www.advocaciacastroferreira.com.br',
     description: 'Especialistas em direito trabalhista empresarial, defesa de sócios e recuperação judicial em São Paulo.',
-    logo: <span className="partner-chip"><img src={advocaciaLogo} alt="Sarah Castro" /></span>,
+    logo: <span className="partner-chip"><img src={advocaciaLogo} alt="Logo da Advocacia Sarah de Castro" /></span>,
   },
 ]
 
