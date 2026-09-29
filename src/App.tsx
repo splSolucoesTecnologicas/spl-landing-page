@@ -1,5 +1,5 @@
 import { ChessProcessSection } from './components/ChessProcessSection'
-import { ContactSection, ManifestoSection, Marquee, SolutionsSection, ThumdraSection } from './components/ContentSections'
+import { ApproachSection, ContactSection, ManifestoSection, Marquee, PartnersSection, SolutionsSection, TeamSection, ThumdraSection } from './components/ContentSections'
 import { HeroSection } from './components/HeroSection'
 import { SiteFooter, SiteNavigation } from './components/SiteChrome'
 
@@ -9,11 +9,14 @@ export default function App() {
       <SiteNavigation />
       <main>
         <HeroSection />
+        <ThumdraSection />
+        <SolutionsSection />
         <ChessProcessSection />
         <Marquee />
+        <ApproachSection />
+        <TeamSection />
+        <PartnersSection />
         <ManifestoSection />
-        <SolutionsSection />
-        <ThumdraSection />
         <ContactSection />
       </main>
       <SiteFooter />

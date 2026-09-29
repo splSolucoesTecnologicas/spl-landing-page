@@ -9,7 +9,9 @@ export function SiteNavigation() {
       <div className="nav-inner">
         <Brand />
         <a className="btn" href="https://wa.me/5562994614940" target="_blank" rel="noopener noreferrer">
-          Falar sobre um projeto <span className="arr" aria-hidden="true">→</span>
+          <span className="btn-full">Falar sobre um projeto</span>
+          <span className="btn-short">Contato</span>
+          <span className="arr" aria-hidden="true">→</span>
         </a>
       </div>
     </nav>
@@ -24,12 +26,16 @@ export function SiteFooter() {
         <nav className="foot-links" aria-label="Navegação do rodapé">
           <a href="#solucoes">Soluções</a>
           <a href="#thumdra">Thumdra</a>
+          <a href="#abordagem">Como construímos</a>
+          <a href="#quem-somos">Quem somos</a>
+          <a href="#parceiros">Parceiros</a>
           <a href="#processo">Como jogamos</a>
           <a href="#contato">Contato</a>
         </nav>
         <div className="foot-note">
-          <span>© 2026 SPL Soluções Tecnológicas. Todos os direitos reservados.</span>
+          <span>© 2026 SPL Soluções Tecnológicas LTDA. Todos os direitos reservados.</span>
           <span>Estratégia · Tecnologia · Resultados</span>
+          <span className="foot-legal">CNPJ 63.951.440/0001-44 · Rua 10, Nº 250, Sala 401, Setor Oeste, Goiânia - GO, CEP 74.120-020 · Feito no Brasil</span>
         </div>
       </div>
     </footer>
