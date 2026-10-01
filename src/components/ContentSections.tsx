@@ -233,7 +233,7 @@ export function TeamSection() {
     <section id="quem-somos" className="team">
       <div className="wrap team-wrap">
         <div className="eyebrow rv">Quem está por trás da SPL</div>
-        <h2 className="section-title rv d1">Queremos ser a<br /><span className="g">rainha do jogo.</span></h2>
+        <h2 className="section-title team-title rv d1">Assim como a Dama no Xadrez,<br /><span className="g">queremos ser uma peça estratégica e versátil no jogo</span></h2>
         <p className="lead rv d2">Somos uma equipe jovem que se uniu para construir um ecossistema completo de tecnologia. Aqui, resultado é consequência e o que vem primeiro é confiança: um time que se importa de verdade com as pessoas e faz um trabalho honesto, do jeito certo.</p>
         <p className="lead rv d2">Um time de desenvolvedores com experiência de mercado, construindo soluções robustas e escaláveis para o próximo movimento do seu negócio.</p>
         <div className="team-grid">

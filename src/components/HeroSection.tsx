@@ -16,7 +16,7 @@ export function HeroSection() {
           </div>
         </div>
         <div className="hero-piece rv d2">
-          <img src={queenImage} alt="Peça de xadrez rainha em preto e verde" />
+          <img src={queenImage} alt="Peça de xadrez dama em preto e verde" />
         </div>
       </div>
       <div className="hero-side" aria-label="Navegação rápida">
